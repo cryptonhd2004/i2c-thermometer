@@ -5,6 +5,7 @@
 * Adam Solovic
 * Tomáš Střelec
 * David Šindelář
+<img width="1314" height="553" alt="thermometer_top" src="https://github.com/user-attachments/assets/c057003c-8f42-4953-bba2-8d7fc72f5459" />
 
 ### Abstrakt
 
