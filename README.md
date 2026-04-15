@@ -40,7 +40,9 @@ Příklad:
 
 
 ### Schéma  
-<img width="1314" height="553" alt="thermometer_top" src="https://github.com/user-attachments/assets/65ecb13e-2c35-42c8-bce4-ba250fc872fc" />
+
+<img width="1314" height="553" alt="thermometer_top (4)" src="https://github.com/user-attachments/assets/3319ec04-26b7-468e-b3b3-8e93698ea44b" />
+
 
 ### Zdroje
 Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
