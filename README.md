@@ -8,6 +8,10 @@
 
 ### Abstrakt
 
+### I2C komunikace
+Na naší bastldesce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, fun guje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. Když bychom chtěli něco zapsat do zařízení, musíme poslat adresu daného registru a poté data které chceme zapsat do daného registru. Při čtení je to ale jiné. Nejdříve pošleme adresu registru ze kterého chceme číst, poté pošleme I2C žádost o restart a znovu odešleme novou žádost o čtení. Pokud vynecháme I2C žádost o restart, hodnota v adresovaném registru bude 0x00. 
+
+
 
 ### FORMÁT PŘIJÍMANÝCH DAT
 
