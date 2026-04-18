@@ -1,10 +1,6 @@
--- Testbench automatically generated online
--- at https://vhdl.lapinoo.net
--- Generation date : Fri, 17 Apr 2026 07:16:16 GMT
--- Request id : cfwk-fed377c2-69e1de406a50b
-
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all; -- Pridane pre pracu s to_unsigned
 
 entity tb_seg7 is
 end tb_seg7;
@@ -25,7 +21,8 @@ architecture tb of tb_seg7 is
     signal NAN        : std_logic_vector (3 downto 0);
     signal AN         : std_logic_vector (3 downto 0);
 
-    constant TbPeriod : time := 1000 ns; -- ***EDIT*** Put right period here
+    -- 100 MHz clock -> perioda je 10 ns
+    constant TbPeriod : time := 10 ns; 
     signal TbClock : std_logic := '0';
     signal TbSimEnded : std_logic := '0';
 
@@ -38,28 +35,38 @@ begin
               NAN        => NAN,
               AN         => AN);
 
-    -- Clock generation
+    -- Generovanie 100 MHz hodinoveho signalu
     TbClock <= not TbClock after TbPeriod/2 when TbSimEnded /= '1' else '0';
-
-    -- ***EDIT*** Check that clk_100MHz is really your main clock signal
     clk_100MHz <= TbClock;
 
     stimuli : process
     begin
-        -- ***EDIT*** Adapt initialization as needed
+        -- Inicializacia
         temp_data <= (others => '0');
+        wait for 100 * TbPeriod; -- kratky reset cas
 
-        -- ***EDIT*** Add stimuli here
-        wait for 100 * TbPeriod;
+        -- TEST 1: Teplota 25 stupnov
+        -- Prevod integer cisla na 8-bitovy std_logic_vector
+        temp_data <= std_logic_vector(to_unsigned(25, 8));
+        
+        -- Cakame 5 milisekund (5 000 000 ns). 
+        -- Pripomenutie: Cely cyklus prepnutia vsetkych 4 cifier vo tvojom kode trva 4 ms.
+        wait for 5 ms;
 
-        -- Stop the clock and hence terminate the simulation
+        -- TEST 2: Teplota 8 stupnov (overenie zobrazenia nuly na desiatkach)
+        temp_data <= std_logic_vector(to_unsigned(8, 8));
+        wait for 5 ms;
+
+        -- TEST 3: Teplota 99 stupnov (maximalna dvojciferna hodnota)
+        temp_data <= std_logic_vector(to_unsigned(99, 8));
+        wait for 5 ms;
+
+        -- Ukoncenie simulacie
         TbSimEnded <= '1';
         wait;
     end process;
 
 end tb;
-
--- Configuration block below is required by some simulators. Usually no need to edit.
 
 configuration cfg_tb_seg7 of tb_seg7 is
     for tb

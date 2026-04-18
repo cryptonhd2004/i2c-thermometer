@@ -44,8 +44,8 @@ begin
     --------------------------------------------------------------------
     -- Binary -> desiatky, jednotky
     --------------------------------------------------------------------
-    tens <= unsigned(temp_data) / 10;
-    ones <= unsigned(temp_data) mod 10;
+    tens <= resize(unsigned(temp_data) / 10, 4);
+    ones <= resize(unsigned(temp_data) mod 10, 4);
 
     --------------------------------------------------------------------
     -- Digit refresh timer (1 ms na digit, 4 ms cely cyklus)
