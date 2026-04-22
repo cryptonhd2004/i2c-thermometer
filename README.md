@@ -15,28 +15,29 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 
 ### Základní informace o senzoru
 
---- Velikost senzoru: 4 mm x 4 mm
+- Velikost senzoru: 4 mm x 4 mm
 
---- Součásti senzoru: Vnitřní zdroj stabilního napětí, teplotní senzor a 16 bitový ADC převodník
+- Součásti senzoru: Vnitřní zdroj stabilního napětí, teplotní senzor a 16 bitový ADC převodník
 
---- Přesnost senzoru: 
-+-0.20°C od -10°C do +85°C na 3.0 voltech
-                      -+-0.25°C od -20°C do +105°C na 2.7 až 3.3 voltech
-                      -13 bitový rozsah (přesnost 0.0625°C)
-                      -16 bitový rozsah (přesnost 0.0078°C)
+- Přesnost senzoru: 
+* +-0.20°C od -10°C do +85°C na 3.0 voltech
+* +-0.25°C od -20°C do +105°C na 2.7 až 3.3 voltech
+* 13 bitový rozsah (přesnost 0.0625°C)
+* 16 bitový rozsah (přesnost 0.0078°C)
                       
----Pracovní rozsahy:  -Teplotní --- (-40)°C až +150°C
-                      -Napěťové --- 2.7 V až 5.5 V
+- Pracovní rozsahy:
+* Teplotní --- (-40)°C až +150°C
+* Napěťové --- 2.7 V až 5.5 V
 
----4 pracovní režimy
+- 4 pracovní režimy
 * Normal mode
 * One-shot mode
 * 1 SPS mode
 * Shutdown mode
 
----10 pracovních registrů
+- 10 pracovních registrů
 
----Komunikace se senzorem probíhá přes I2C sběrnici
+- Komunikace se senzorem probíhá přes I2C sběrnici
 
 ### Popis pinů
 
