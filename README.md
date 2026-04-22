@@ -41,7 +41,19 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 <img width="553" height="553" alt="ADT7420-piny(4)" src="temp sensor - top documentation/ADT7420-piny.png" />
 
 | Číslo pinu | Označení | Popis |
-|------------|
+|------------| ---------|----|
+|`1`|adada|aasda|
+|`2`|adasdadada|asasasa|
+|`3`||
+|`4`|
+|`5-8`|
+|`9`|
+|`10`|
+|`11`|
+|`12`|
+|`13-16`|
+|`17`|
+
 ### I2C komunikace
 Na naší bastldesce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, funguje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. 
 Když bychom chtěli něco zapsat do zařízení, musíme poslat adresu daného registru a poté data které chceme zapsat do daného registru. Při čtení je to ale jiné. Nejdříve pošleme adresu registru ze kterého chceme číst, poté pošleme I2C žádost o restart a znovu odešleme novou žádost o čtení. Pokud vynecháme I2C žádost o restart, hodnota v adresovaném registru bude 0x00. Některé registry ukládají 16bitové hodnoty jako jeden pár 8bitových hodnot a proto ADT7420 automaticky přidá jeden bit do adresy registru při přečtení z prvního registru. 
