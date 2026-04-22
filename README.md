@@ -36,8 +36,9 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 
 ---Komunikace se senzorem probíhá přes I2C sběrnici
 
-
-
+### Popis pinů
+temp sensor - top documentation/ADT7420-pc.png
+<img width="600" height="553" alt="piny" (4)" src="temp sensor - top documentation/ADT7420-pc.png" />
 
 ### I2C komunikace
 Na naší bastldesce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, funguje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. 
