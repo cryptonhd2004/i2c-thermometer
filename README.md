@@ -42,17 +42,17 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 
 | Číslo pinu | Označení | Popis |
 |------------| ---------|----|
-|`1`|adada|aasda|
-|`2`|adasdadada|asasasa|
-|`3`||
-|`4`|
-|`5-8`|
-|`9`|
-|`10`|
-|`11`|
-|`12`|
-|`13-16`|
-|`17`|
+|`1`|SCL|I2C sériový clock výstup - využíváme ho k určení okamžiku kdy čteme nebo zapisujeme data do jednotlivých registrů|
+|`2`|SDA|I2C sériový datový výstup - na tomto pinu probíhá přenos dat do a z našeho senzoru|
+|`3`|A0|I2C adresní pin - musí být připojený na Vdd nebo ground pro získání I2C adresy|
+|`4`|A1|I2C adresní pin - musí být připojený na Vdd nebo ground pro získání I2C adresy|
+|`5-8`|NC|NEPŘIPOJEN|
+|`9`|INT|Indikátor překročení teplotních rozsahů|
+|`10`|CT|Indikátor kritického překročení teplotních rozměrů|
+|`11`|GND|Analogový a digitální ground|
+|`12`|Vdd|Přivod napětí 2.7 V až 5V |
+|`13-16`|NC|NEPŘIPOJEN|
+|`17`|EP|Odhalený pin - je nutné aby tento pin byl připojen na ground nebo ponechaný sám o sobě|
 
 ### I2C komunikace
 Na naší bastldesce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, funguje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. 
