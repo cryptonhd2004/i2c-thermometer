@@ -19,18 +19,20 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 
 --- Součásti senzoru: Vnitřní zdroj stabilního napětí, teplotní senzor a 16 bitový ADC převodník
 
---- Přesnost senzoru: +-0.20°C od -10°C do +85°C na 3.0 voltech
-                      +-0.25°C od -20°C do +105°C na 2.7 až 3.3 voltech
-                      13 bitový rozsah (přesnost 0.0625°C)
-                      16 bitový rozsah (přesnost 0.0078°C)
+--- Přesnost senzoru: 
++-0.20°C od -10°C do +85°C na 3.0 voltech
+                      -+-0.25°C od -20°C do +105°C na 2.7 až 3.3 voltech
+                      -13 bitový rozsah (přesnost 0.0625°C)
+                      -16 bitový rozsah (přesnost 0.0078°C)
                       
----Pracovní rozsahy:  Teplotní --- (-40)°C až +150°C
-                      Napěťové --- 2.7 V až 5.5 V
+---Pracovní rozsahy:  -Teplotní --- (-40)°C až +150°C
+                      -Napěťové --- 2.7 V až 5.5 V
 
----4 pracovní režimy: Normal mode
-                      One-shot mode
-                      1 SPS mode
-                      Shutdown mode
+---4 pracovní režimy
+* Normal mode
+* One-shot mode
+* 1 SPS mode
+* Shutdown mode
 
 ---10 pracovních registrů
 
@@ -42,17 +44,17 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 
 | Číslo pinu | Označení | Popis |
 |------------| ---------|----|
-|`1`|adada|aasda|
-|`2`|adasdadada|asasasa|
-|`3`||
-|`4`|
-|`5-8`|
-|`9`|
-|`10`|
-|`11`|
-|`12`|
-|`13-16`|
-|`17`|
+|`1`|SCL|I2C sériový clock výstup - využíváme ho k určení okamžiku kdy čteme nebo zapisujeme data do jednotlivých registrů|
+|`2`|SDA|I2C sériový datový výstup - na tomto pinu probíhá přenos dat do a z našeho senzoru|
+|`3`|A0|I2C adresní pin - musí být připojený na Vdd nebo ground pro získání I2C adresy|
+|`4`|A1|I2C adresní pin - musí být připojený na Vdd nebo ground pro získání I2C adresy|
+|`5-8`|NC|NEPŘIPOJEN|
+|`9`|INT|Indikátor překročení teplotních rozsahů|
+|`10`|CT|Indikátor kritického překročení teplotních rozměrů|
+|`11`|GND|Analogový a digitální ground|
+|`12`|Vdd|Přivod napětí 2.7 V až 5V |
+|`13-16`|NC|NEPŘIPOJEN|
+|`17`|EP|Odhalený pin - je nutné aby tento pin byl připojen na ground nebo ponechaný sám o sobě|
 
 ### I2C komunikace
 Na naší bastldesce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, funguje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. 
@@ -90,7 +92,7 @@ Příklad:
 
 
 ### Zdroje
-Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
-Verilog inspirace: https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C
-Datasheet pro naši desku Nexys A7 50T: https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf
-Datasheet pro ADT7420: https://www.analog.com/media/en/technical-documentation/data-sheets/ADT7420.pdf
+* Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
+* Verilog inspirace: https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C
+* Datasheet pro naši desku Nexys A7 50T: https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf
+* Datasheet pro ADT7420: https://www.analog.com/media/en/technical-documentation/data-sheets/ADT7420.pdf
