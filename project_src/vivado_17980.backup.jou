@@ -3,10 +3,10 @@
 # SW Build 6403652 on Thu Mar 19 19:48:24 GMT 2026
 # IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
 # SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
-# Start of session at: Wed Apr 22 16:05:54 2026
-# Process ID         : 24092
+# Start of session at: Wed Apr 22 09:31:14 2026
+# Process ID         : 17980
 # Current directory  : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src
-# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent22288 C:\Users\Adam\Desktop\Skola\VUT\DE1\i2c-thermometer\project_src\project_src.xpr
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent21560 C:\Users\Adam\Desktop\Skola\VUT\DE1\i2c-thermometer\project_src\project_src.xpr
 # Log file           : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/vivado.log
 # Journal file       : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src\vivado.jou
 # Running On         : LenovoLegionY540
@@ -19,9 +19,9 @@
 # Host memory        : 17096 MB
 # Swap memory        : 1073 MB
 # Total Virtual      : 18169 MB
-# Available Virtual  : 1028 MB
+# Available Virtual  : 7297 MB
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.xpr
 update_compile_order -fileset sources_1
-reset_project
+synth_design -rtl -rtl_skip_mlo -name rtl_1

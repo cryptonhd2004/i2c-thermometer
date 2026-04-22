@@ -3,10 +3,10 @@
 # SW Build 6403652 on Thu Mar 19 19:48:24 GMT 2026
 # IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
 # SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
-# Start of session at: Wed Apr 22 16:05:54 2026
-# Process ID         : 24092
+# Start of session at: Wed Apr 22 09:31:14 2026
+# Process ID         : 17980
 # Current directory  : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src
-# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent22288 C:\Users\Adam\Desktop\Skola\VUT\DE1\i2c-thermometer\project_src\project_src.xpr
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent21560 C:\Users\Adam\Desktop\Skola\VUT\DE1\i2c-thermometer\project_src\project_src.xpr
 # Log file           : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/vivado.log
 # Journal file       : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src\vivado.jou
 # Running On         : LenovoLegionY540
@@ -19,7 +19,7 @@
 # Host memory        : 17096 MB
 # Swap memory        : 1073 MB
 # Total Virtual      : 18169 MB
-# Available Virtual  : 1028 MB
+# Available Virtual  : 7297 MB
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.xpr
@@ -69,10 +69,12 @@ WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu118:part0:2.3 availab
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu118:part0:2.4 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu118\2.4\board.xml as part xcvu9p-flga2104-2l-e specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu128:part0:1.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu128\production\1.0\board.xml as part xcvu37p-fsvh2892-2l-e specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu129:part0:1.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu129\production\1.0\board.xml as part xcvu29p-fsga2577-2l-e specified in board_part file is either invalid or not available
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.gen/sources_1'.
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vcu1525:part0:1.3 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vcu1525\1.3\board.xml as part xcvu9p-fsgd2104-2l-e specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.0\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.1 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.1\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek280:part0:1.2 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek280\production\1.2\board.xml as part xcve2802-vsvh1760-2mp-e-s specified in board_part file is either invalid or not available
+WARNING: [filemgmt 56-3] IPUserFilesDir: Could not find the directory 'C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.ip_user_files'.
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385:part0:1.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385\1.0\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385:part0:1.1 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385\1.1\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vek385_1:part0:1.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\vek385_2\1.0\board.xml as part xc2ve3858-ssva2112-2mp-e-s specified in board_part file is either invalid or not available
@@ -117,9 +119,6 @@ WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216:part0:2.0 availab
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu216ld\production\2.0\board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670\2.0\board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\zcu670ld\1.0\board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
-INFO: [Project 1-313] Project file moved from 'D:/Vivado/i2c-thermometer/project_src' since last save.
-INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.gen/sources_1'.
-WARNING: [filemgmt 56-3] IPUserFilesDir: Could not find the directory 'C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.ip_user_files'.
 Scanning sources...
 Finished scanning sources
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:emb-plus-vpr-4616:part0:1.0 available at C:/AMD/2025.2.1/data/xhub/boards\XilinxBoardStore\boards\Xilinx\emb-plus-vpr-4616\1.0\board.xml as part xcve2302-sfva784-2mp-e-s specified in board_part file is either invalid or not available
@@ -132,14 +131,61 @@ INFO: [Common 17-14] Message 'Board 49-26' appears 100 times and further instanc
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/AMD/2025.2.1/Vivado/data/ip'.
-open_project: Time (s): cpu = 00:00:36 ; elapsed = 00:00:23 . Memory (MB): peak = 1656.992 ; gain = 259.320
+open_project: Time (s): cpu = 00:00:22 ; elapsed = 00:00:12 . Memory (MB): peak = 1663.297 ; gain = 246.578
 update_compile_order -fileset sources_1
-reset_project
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+Command: synth_design -rtl -rtl_skip_mlo -name rtl_1
+Starting synth_design
+Using part: xc7a50ticsg324-1L
+Top: top
+INFO: [Device 21-403] Loading part xc7a50ticsg324-1L
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 12812
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2393.492 ; gain = 551.043
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'top' [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/top.vhd:18]
+INFO: [Synth 8-638] synthesizing module 'clk_en' [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/clkgen_200kHz.vhd:16]
+	Parameter G_MAX bound to: 500 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'clk_en' (0#1) [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/clkgen_200kHz.vhd:16]
+INFO: [Synth 8-638] synthesizing module 'i2c_master' [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/i2c_master.vhd:17]
+INFO: [Synth 8-256] done synthesizing module 'i2c_master' (0#1) [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/i2c_master.vhd:17]
+INFO: [Synth 8-638] synthesizing module 'temp_conv' [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/temp_conv.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'temp_conv' (0#1) [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/temp_conv.vhd:13]
+INFO: [Synth 8-638] synthesizing module 'seg7' [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/imports/new/display_driver.vhd:16]
+INFO: [Synth 8-226] default block is never used [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/imports/new/display_driver.vhd:86]
+INFO: [Synth 8-226] default block is never used [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/imports/new/display_driver.vhd:100]
+INFO: [Synth 8-256] done synthesizing module 'seg7' (0#1) [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/imports/new/display_driver.vhd:16]
+INFO: [Synth 8-256] done synthesizing module 'top' (0#1) [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sources_1/new/top.vhd:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:10 . Memory (MB): peak = 2494.664 ; gain = 652.215
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:10 . Memory (MB): peak = 2494.664 ; gain = 652.215
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:10 . Memory (MB): peak = 2494.664 ; gain = 652.215
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2494.664 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/constrs_1/imports/i2c-thermometer/Nexys-A7-50T-Master.xdc]
+Finished Parsing XDC File [C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/constrs_1/imports/i2c-thermometer/Nexys-A7-50T-Master.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2548.090 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+RTL Elaboration Complete:  : Time (s): cpu = 00:00:27 ; elapsed = 00:00:19 . Memory (MB): peak = 2795.070 ; gain = 952.621
+18 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 2795.070 ; gain = 1112.035
 exit
-INFO: [Common 17-206] Exiting Vivado at Wed Apr 22 16:07:08 2026...
-pp::load_apps' was cancelled
-1
-open_project: Time (s): cpu = 00:00:35 ; elapsed = 00:00:19 . Memory (MB): peak = 1672.090 ; gain = 262.566
-INFO: [Common 17-344] 'open_project' was cancelled
-exit
-INFO: [Common 17-206] Exiting Vivado at Wed Apr 22 16:06:48 2026...
+INFO: [Common 17-206] Exiting Vivado at Wed Apr 22 09:48:49 2026...
