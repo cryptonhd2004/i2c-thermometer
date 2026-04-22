@@ -19,7 +19,8 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 
 --- Součásti senzoru: Vnitřní zdroj stabilního napětí, teplotní senzor a 16 bitový ADC převodník
 
---- Přesnost senzoru: -+-0.20°C od -10°C do +85°C na 3.0 voltech
+--- Přesnost senzoru: 
++-0.20°C od -10°C do +85°C na 3.0 voltech
                       -+-0.25°C od -20°C do +105°C na 2.7 až 3.3 voltech
                       -13 bitový rozsah (přesnost 0.0625°C)
                       -16 bitový rozsah (přesnost 0.0078°C)
