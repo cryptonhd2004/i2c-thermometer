@@ -90,7 +90,7 @@ Příklad:
 
 
 ### Zdroje
-Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
-Verilog inspirace: https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C
-Datasheet pro naši desku Nexys A7 50T: https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf
-Datasheet pro ADT7420: https://www.analog.com/media/en/technical-documentation/data-sheets/ADT7420.pdf
+* Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
+* Verilog inspirace: https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C
+* Datasheet pro naši desku Nexys A7 50T: https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf
+* Datasheet pro ADT7420: https://www.analog.com/media/en/technical-documentation/data-sheets/ADT7420.pdf
