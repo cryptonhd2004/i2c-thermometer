@@ -4,7 +4,7 @@
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.                   -->
 <!-- Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.   -->
 
-<Project Product="Vivado" Version="7" Minor="71" Path="D:/Vivado/i2c-thermometer/project_src/project_src.xpr">
+<Project Product="Vivado" Version="7" Minor="71" Path="C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="2223b29b2ca740b6b6b5aa538b6ae928"/>

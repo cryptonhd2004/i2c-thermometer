@@ -48,7 +48,6 @@ begin
     --------------------------------------------------------------------
     -- BCD převod (0 az 99)
     --------------------------------------------------------------------
-   
     process(temp_data)
         variable t_int : integer range 0 to 255;
     begin
@@ -85,35 +84,23 @@ begin
     process(anode_select)
     begin
         case anode_select is
-            when "00" => an_reg <= "1110";  -- Pozice 0: Jednotky 
-            when "01" => an_reg <= "1101";  -- Pozice 1: Desítky
-            when "10" => an_reg <= "1011";  -- Pozice 2: Stupně (°)
-            when "11" => an_reg <= "0111";  -- Pozice 3: Jednotka (C nebo F)
+            when "00" => an_reg <= "1110";  -- AN(0) - Úplne vpravo
+            when "01" => an_reg <= "1101";  -- AN(1) 
+            when "10" => an_reg <= "1011";  -- AN(2) 
+            when "11" => an_reg <= "0111";  -- AN(3) - Najviac vľavo (z našich 4)
             when others => an_reg <= "1111";
         end case;
     end process;
 
     --------------------------------------------------------------------
-    -- Segment dekoder podla zvoleneho digitu
+    -- Segment dekoder podla zvoleneho digitu (OPRAVENÉ PORADIE)
     --------------------------------------------------------------------
     process(anode_select, ones, tens, is_fahr)
     begin
         case anode_select is
 
-            -- Pozice 3: Jednotka
+            -- Pozice 3 (AN3 - vľavo): Desiatky teploty
             when "11" =>
-                if is_fahr = '1' then
-                    seg_reg <= F_SEG;
-                else
-                    seg_reg <= C_SEG;
-                end if;
-
-            -- Pozice 2: Symbol stupnu
-            when "10" =>
-                seg_reg <= DEG;
-
-            -- Pozice 1: Desiatky teploty (pokud je 0, zhasneme to)
-            when "01" =>
                 if tens = 0 then
                     seg_reg <= BLANK;
                 else
@@ -131,8 +118,8 @@ begin
                     end case;
                 end if;
 
-            -- Pozice 0: Jednotky teploty
-            when "00" =>
+            -- Pozice 2 (AN2): Jednotky teploty
+            when "10" =>
                 case ones is
                     when 0 => seg_reg <= ZERO;
                     when 1 => seg_reg <= ONE;
@@ -146,6 +133,18 @@ begin
                     when 9 => seg_reg <= NINE;
                     when others => seg_reg <= BLANK;
                 end case;
+
+            -- Pozice 1 (AN1): Symbol stupnu
+            when "01" =>
+                seg_reg <= DEG;
+
+            -- Pozice 0 (AN0 - úplne vpravo): Jednotka (C nebo F)
+            when "00" =>
+                if is_fahr = '1' then
+                    seg_reg <= F_SEG;
+                else
+                    seg_reg <= C_SEG;
+                end if;
 
             when others =>
                 seg_reg <= BLANK;
