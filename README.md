@@ -27,7 +27,7 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 ---Pracovní rozsahy:  -Teplotní --- (-40)°C až +150°C
                       -Napěťové --- 2.7 V až 5.5 V
 
----4 pracovní režimy: * Normal mode
+---4 pracovní režimy  * Normal mode
                       * One-shot mode
                       * 1 SPS mode
                       * Shutdown mode
