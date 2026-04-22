@@ -1,34 +1,34 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
 
-entity clkgen_200kHz is
-    port (
-        clk_100MHz  : in  std_logic;
-        clk_200kHz  : out std_logic
+entity clk_en is
+    generic (
+        -- Pro 100 MHz sys clk a 200 kHz CE: 100M / 200k = 500
+        G_MAX : positive := 500
     );
-end entity clkgen_200kHz;
+    Port ( 
+        clk : in  STD_LOGIC;
+        rst : in  STD_LOGIC;
+        ce  : out STD_LOGIC
+    );
+end clk_en;
 
-architecture rtl of clkgen_200kHz is
-
-    -- 100 MHz / 200 kHz / 2 = 250  → čítač 0..249
-    signal counter : unsigned(7 downto 0) := (others => '0');
-    signal clk_reg : std_logic := '1';
-
+architecture Behavioral of clk_en is
+    signal sig_cnt : integer range 0 to G_MAX-1 := 0;
 begin
-
-    process(clk_100MHz)
+    process (clk) is
     begin
-        if rising_edge(clk_100MHz) then
-            if counter = to_unsigned(249, counter'length) then
-                counter <= (others => '0');
-                clk_reg <= not clk_reg;
+        if rising_edge(clk) then 
+            if rst = '1' then     
+                ce      <= '0';   
+                sig_cnt <= 0;     
+            elsif sig_cnt = G_MAX-1 then
+                ce      <= '1';
+                sig_cnt <= 0;
             else
-                counter <= counter + 1;
+                ce      <= '0';
+                sig_cnt <= sig_cnt + 1;
             end if;
         end if;
     end process;
-
-    clk_200kHz <= clk_reg;
-
-end architecture rtl;
+end Behavioral;

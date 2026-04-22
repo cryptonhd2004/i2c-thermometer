@@ -16,18 +16,32 @@ end entity top;
 
 architecture rtl of top is
 
-    signal sda_dir   : std_logic;                            -- směr SDA (diag)
-    signal w_200kHz  : std_logic;                            -- 200 kHz clock
-    signal w_data    : std_logic_vector(7 downto 0);         -- temp data from i2c_master
+    signal sda_dir       : std_logic;                            -- směr SDA (diag)
+    signal w_ce_200kHz   : std_logic;                            -- 200 kHz clock enable pulzy
+    signal w_data        : std_logic_vector(7 downto 0);         -- temp data from i2c_master
 
 begin
+
+    --------------------------------------------------------------------
+    -- 200 kHz clock enable generator
+    --------------------------------------------------------------------
+    u_clkgen : entity work.clk_en
+        generic map (
+            G_MAX => 500  -- 100 MHz / 200 kHz
+        )
+        port map (
+            clk => CLK100MHZ,
+            rst => reset,
+            ce  => w_ce_200kHz
+        );
 
     --------------------------------------------------------------------
     -- I2C master
     --------------------------------------------------------------------
     u_master : entity work.i2c_master
         port map (
-            clk_200kHz => w_200kHz,
+            clk        => CLK100MHZ,      -- hlavní hodiny (100 MHz)
+            ce         => w_ce_200kHz,    -- povolení kroku na 200 kHz
             reset      => reset,
             SDA        => TMP_SDA,
             temp_data  => w_data,
@@ -36,17 +50,9 @@ begin
         );
 
     --------------------------------------------------------------------
-    -- 200 kHz clock generator
-    --------------------------------------------------------------------
-    u_clkgen : entity work.clkgen_200kHz
-        port map (
-            clk_100MHz => CLK100MHZ,
-            clk_200kHz => w_200kHz
-        );
-
-    --------------------------------------------------------------------
     -- 7-segment display controller
     --------------------------------------------------------------------
+    -- Tady zůstává připojení stejné, seg7 si interně řeší své vlastní dělení/multiplexování
     u_seg7 : entity work.seg7
         port map (
             clk_100MHz => CLK100MHZ,

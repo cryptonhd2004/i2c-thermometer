@@ -8,6 +8,7 @@ end entity i2c_master_tb;
 architecture sim of i2c_master_tb is
 
     signal clk             : std_logic := '0';
+    signal ce              : std_logic := '0';
     signal reset           : std_logic := '0';
     signal SDA             : std_logic := 'Z';
     signal SDA_dir         : std_logic;
@@ -19,7 +20,8 @@ begin
 
     uut : entity work.i2c_master
         port map (
-            clk_200kHz => clk,
+            clk        => clk,
+            ce         => ce,
             reset      => reset,
             SDA        => SDA,
             temp_data  => temp_data,
@@ -28,13 +30,31 @@ begin
         );
 
     --------------------------------------------------------------------
-    -- Clock: 2 ns perioda = 500 MHz simulační clock
+    -- Clock: 100 MHz (perioda 10 ns) pro Nexys A7
     --------------------------------------------------------------------
     clk_process : process
     begin
         while true loop
-            clk <= '0'; wait for 1 ns;
-            clk <= '1'; wait for 1 ns;
+            clk <= '0'; wait for 5 ns;
+            clk <= '1'; wait for 5 ns;
+        end loop;
+    end process;
+
+    --------------------------------------------------------------------
+    -- Clock Enable: 200 kHz (1 pulz každých 500 taktů 100MHz hodin)
+    --------------------------------------------------------------------
+    ce_process : process
+        variable cnt : integer := 0;
+    begin
+        while true loop
+            wait until rising_edge(clk);
+            if cnt = 499 then
+                ce  <= '1';
+                cnt := 0;
+            else
+                ce  <= '0';
+                cnt := cnt + 1;
+            end if;
         end loop;
     end process;
 
@@ -50,52 +70,66 @@ begin
     stim_process : process
     begin
         reset <= '1';
-        wait for 10 ns;
+        wait for 100 ns;
         reset <= '0';
-        wait for 500000 ns;
+        
+        -- POZOR: 1 I2C cyklus (POWER_UP až NACK) trvá cca 12.8 ms!
+        -- Odeslání 20 teplot potřebuje 20 * 12.8 = cca 256 ms.
+        wait for 300 ms; 
+        
+        report "Simulace uspesne ukoncena." severity note;
         wait;
     end process;
 
     --------------------------------------------------------------------
-    -- Slave model: 5 teplot, 50 ns rozestup
+    -- Slave model: Odpovídá na čtení od mastera
     --------------------------------------------------------------------
     slave_process : process
 
         procedure send_temp(
             constant tx_data : in std_logic_vector(15 downto 0)
         ) is
-            variable bit_idx : integer;
         begin
-            -- čekej na SCL falling edge kdy master přešel do read fáze
+            -- Čekej na SCL falling edge kdy master přešel do read fáze
             loop
                 wait until falling_edge(SCL);
                 exit when SDA_dir = '0';
             end loop;
 
-            -- ACK
+            -- ACK od slave (po přijetí adresy)
             slave_drive_low <= '1';
-            wait until rising_edge(SCL);
             wait until falling_edge(SCL);
             slave_drive_low <= '0';
 
-            -- 16 bitů MSB první
-            bit_idx := 15;
-            while bit_idx >= 0 loop
-                wait until falling_edge(SCL);
+            -- Odeslání MSB bajtu (8 bitů)
+            for bit_idx in 15 downto 8 loop
                 if tx_data(bit_idx) = '0' then
                     slave_drive_low <= '1';
                 else
                     slave_drive_low <= '0';
                 end if;
-                wait until rising_edge(SCL);
-                bit_idx := bit_idx - 1;
+                wait until falling_edge(SCL);
             end loop;
 
+            -- Master odesílá ACK, slave musí uvolnit sběrnici a počkat 1 takt!
+            slave_drive_low <= '0';
             wait until falling_edge(SCL);
+
+            -- Odeslání LSB bajtu (8 bitů)
+            for bit_idx in 7 downto 0 loop
+                if tx_data(bit_idx) = '0' then
+                    slave_drive_low <= '1';
+                else
+                    slave_drive_low <= '0';
+                end if;
+                wait until falling_edge(SCL);
+            end loop;
+            
+            -- Uvolnění sběrnice před stavem NACK
             slave_drive_low <= '0';
         end procedure;
 
-        begin
+    begin
         slave_drive_low <= '0';
         wait for 5000 ns;
 
