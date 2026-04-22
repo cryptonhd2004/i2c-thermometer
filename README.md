@@ -29,9 +29,9 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 
 ---4 pracovní režimy
 * Normal mode
-                      * One-shot mode
-                      * 1 SPS mode
-                      * Shutdown mode
+* One-shot mode
+* 1 SPS mode
+* Shutdown mode
 
 ---10 pracovních registrů
 
