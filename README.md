@@ -9,10 +9,41 @@
 
 ### Abstrakt
 
+### Úvod
+
+V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvolili jsme ho z důvodu minulé zkušenosti jednoho našeho člena s teplotními senzory. 
+
+### Základní informace o senzoru
+
+--- Velikost senzoru: 4 mm x 4 mm
+
+--- Součásti senzoru: Vnitřní zdroj stabilního napětí, teplotní senzor a 16 bitový ADC převodník
+
+--- Přesnost senzoru: +-0.20°C od -10°C do +85°C na 3.0 voltech
+                      +-0.25°C od -20°C do +105°C na 2.7 až 3.3 voltech
+                      13 bitový rozsah (přesnost 0.0625°C)
+                      16 bitový rozsah (přesnost 0.0078°C)
+                      
+---Pracovní rozsahy:  Teplotní --- (-40)°C až +150°C
+                      Napěťové --- 2.7 V až 5.5 V
+
+---4 pracovní režimy: Normal mode
+                      One-shot mode
+                      1 SPS mode
+                      Shutdown mode
+
+---10 pracovních registrů
+
+---Komunikace se senzorem probíhá přes I2C sběrnici
+
+### Popis pinů
+
+<img width="553" height="553" alt="ADT7420-pc(4)" src="temp sensor - top documentation/ADT7420-pc.png" />
+
 ### I2C komunikace
 Na naší bastldesce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, funguje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. 
 Když bychom chtěli něco zapsat do zařízení, musíme poslat adresu daného registru a poté data které chceme zapsat do daného registru. Při čtení je to ale jiné. Nejdříve pošleme adresu registru ze kterého chceme číst, poté pošleme I2C žádost o restart a znovu odešleme novou žádost o čtení. Pokud vynecháme I2C žádost o restart, hodnota v adresovaném registru bude 0x00. Některé registry ukládají 16bitové hodnoty jako jeden pár 8bitových hodnot a proto ADT7420 automaticky přidá jeden bit do adresy registru při přečtení z prvního registru. 
-Toho budeme využívat my, jelikož čteme z registrů Temperature value a ty jsou: Temperature value most significant byte a Temperature value least significant byte. Díky tomuto automatickému přičítaní můžeme číst z obou registrů zároveň.
+Toho budeme využívat my, jelikož čteme z registrů Temperature value a ty jsou dva: Temperature value most significant byte a Temperature value least significant byte. Díky tomuto automatickému přičítaní můžeme číst z obou registrů zároveň.
 
 
 
