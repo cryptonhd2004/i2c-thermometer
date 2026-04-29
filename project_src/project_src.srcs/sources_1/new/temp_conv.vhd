@@ -4,20 +4,23 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity temp_conv is
     port (
-        temp_data  : in  std_logic_vector(7 downto 0);
-        celsius    : out std_logic_vector(7 downto 0);
-        fahrenheit : out std_logic_vector(7 downto 0)
+        temp_raw       : in  std_logic_vector(15 downto 0);   
+        celsius_x100   : out std_logic_vector(15 downto 0);   
+        fahrenheit_x100: out std_logic_vector(15 downto 0)    
     );
 end entity temp_conv;
 
 architecture rtl of temp_conv is
+    signal raw_int  : integer;
+    signal temp_13b : integer;
+    signal c_total  : integer;
 begin
-
-    -- Celzius:  prepojime vstup priamo na vystup (pass-through)
-    celsius <= temp_data;
-
-    -- Fahrenheit: F = (C * 9) / 5 + 32
-    -- funkcia resize => vysledok zrezany presne na 8 bitov
-    fahrenheit <= std_logic_vector( resize( (unsigned(temp_data) * 9) / 5 + 32, 8 ) );
+    
+    raw_int <= to_integer(unsigned(temp_raw));
+    temp_13b <= raw_int / 8;
+    c_total <= (temp_13b * 625) / 100;
+    
+    celsius_x100 <= std_logic_vector(to_unsigned(c_total, 16));
+    fahrenheit_x100 <= std_logic_vector(to_unsigned((c_total * 18) / 10 + 3200, 16));
 
 end architecture rtl;

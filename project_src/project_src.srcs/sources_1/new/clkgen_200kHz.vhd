@@ -2,10 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity clk_en is
-    generic (
-        -- Pro 100 MHz sys clk a 200 kHz CE: 100M / 200k = 500
-        G_MAX : positive := 500
-    );
+    generic ( G_MAX : positive := 500 );
     Port ( 
         clk : in  STD_LOGIC;
         rst : in  STD_LOGIC;
