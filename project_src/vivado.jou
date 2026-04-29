@@ -3,10 +3,10 @@
 # SW Build 6403652 on Thu Mar 19 19:48:24 GMT 2026
 # IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
 # SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
-# Start of session at: Wed Apr 29 10:33:09 2026
-# Process ID         : 2560
+# Start of session at: Wed Apr 29 17:28:41 2026
+# Process ID         : 22256
 # Current directory  : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src
-# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent17120 C:\Users\Adam\Desktop\Skola\VUT\DE1\i2c-thermometer\project_src\project_src.xpr
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent12528 C:\Users\Adam\Desktop\Skola\VUT\DE1\i2c-thermometer\project_src\project_src.xpr
 # Log file           : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/vivado.log
 # Journal file       : C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src\vivado.jou
 # Running On         : LenovoLegionY540
@@ -19,12 +19,88 @@
 # Host memory        : 17096 MB
 # Swap memory        : 1073 MB
 # Total Virtual      : 18169 MB
-# Available Virtual  : 10672 MB
+# Available Virtual  : 7959 MB
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.xpr
 update_compile_order -fileset sources_1
-launch_runs impl_1 -to_step write_bitstream -jobs 8
-wait_on_run impl_1
+launch_simulation
+source temp_conv_tb.tcl
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+relaunch_sim
+run 20 ms
+run 20 ms
+run 20 ms
+run 20 ms
+run 20 ms
+run 20 ms
+relaunch_sim
+restart
+run 20 ns
+run 20 ns
+run 20 ns
+run 20 ns
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top cfg_tb_seg7 [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+launch_simulation
+export_ip_user_files -of_objects  [get_files C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/imports/new/display_driver_tb.vhd] -no_script -reset -force -quiet
+remove_files  -fileset sim_1 C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/imports/new/display_driver_tb.vhd
+update_compile_order -fileset sim_1
+set_property source_mgmt_mode DisplayOnly [current_project]
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/new/display_driver_tb.vhd w ]
+add_files -fileset sim_1 C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/new/display_driver_tb.vhd
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top display_driver_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+launch_simulation
+export_ip_user_files -of_objects  [get_files C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/new/display_driver_tb.vhd] -no_script -reset -force -quiet
+remove_files  -fileset sim_1 C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/new/display_driver_tb.vhd
+file delete -force C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/new/display_driver_tb.vhd
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/new/disp_driver_tb.vhd w ]
+add_files -fileset sim_1 C:/Users/Adam/Desktop/Skola/VUT/DE1/i2c-thermometer/project_src/project_src.srcs/sim_1/new/disp_driver_tb.vhd
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top disp_driver_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top seg7_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+launch_simulation
+close_sim
+launch_simulation
+source seg7_tb.tcl
+restart
+run 30 ms
+close_sim
 synth_design -rtl -rtl_skip_mlo -name rtl_1
 reset_project

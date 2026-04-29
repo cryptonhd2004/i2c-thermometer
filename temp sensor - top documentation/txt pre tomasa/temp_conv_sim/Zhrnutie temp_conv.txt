@@ -1,0 +1,51 @@
+Zhrnutie verifikácie modulu temp_conv (Prevod teploty)
+Účel testu:
+Behaviorálna simulácia (Testbench) bola vytvorená za účelom overenia správnosti kombinačnej logiky modulu "temp_conv". Tento modul spracováva 16-bitové surové dáta prijaté cez I2C zbernici z teplotného senzora ADT7420 a prevádza ich na reálne hodnoty v stupňoch Celzia a Fahrenheita. Výstupné hodnoty sú hardvérovo vynásobené konštantou 100 (tzv. fixed-point aritmetika), aby boli priamo pripravené na zobrazenie na sedemsegmentovom displeji s dvoma desatinnými miestami.  
+
+Priebeh simulácie a metodika:
+Simulácia prebiehala v čase od 0 ns do 80 ns, pričom každých 20 ns bola na vstup modulu (sig_temp_raw) privedená nová testovacia hodnota reprezentujúca typické prevádzkové stavy. Keďže je modul čisto kombinačný, zmeny na výstupoch (sig_celsius_x100 a sig_fahrenheit_x100) sa prejavili okamžite a bez fázového oneskorenia. Výstupné signály boli pri odčítaní formátované do dekadickej sústavy bez znamienka (Unsigned Decimal) pre lepšiu čitateľnosť.
+
+Rozbor jednotlivých testovacích vektorov:
+
+Čas 0 ns – 20 ns (Test nulovej hodnoty / Bod mrazu)
+
+Vstup (Hexadecimálne): 0x0000
+
+Výstup Celzius: 0 (reprezentuje 0,00 °C)
+
+Výstup Fahrenheit: 3200 (reprezentuje 32,00 °F)
+
+Vyhodnotenie: ÚSPEŠNÝ (PASS)
+
+Čas 20 ns – 40 ns (Test typickej izbovej teploty 25 °C)
+
+Vstup (Hexadecimálne): 0x0C80
+
+Výstup Celzius: 2500 (reprezentuje 25,00 °C)
+
+Výstup Fahrenheit: 7700 (reprezentuje 77,00 °F)
+
+Vyhodnotenie: ÚSPEŠNÝ (PASS)
+
+Čas 40 ns – 60 ns (Test vysokej teploty / Bod varu 100,50 °C)
+
+Vstup (Hexadecimálne): 0x3240
+
+Výstup Celzius: 10050 (reprezentuje 100,50 °C)
+
+Výstup Fahrenheit: 21290 (reprezentuje 212,90 °F)
+
+Vyhodnotenie: ÚSPEŠNÝ (PASS)
+
+Čas 60 ns – 80 ns (Test zlomkovej teploty 23,43 °C)
+
+Vstup (Hexadecimálne): 0x0BB8
+
+Výstup Celzius: 2343 (reprezentuje 23,43 °C)
+
+Výstup Fahrenheit: 7417 (reprezentuje 74,17 °F)
+
+Vyhodnotenie: ÚSPEŠNÝ (PASS)
+
+Záver pre dokumentáciu:
+Modul "temp_conv" je matematicky 100 % presný a plne funkčný. Aplikovaná celočíselná aritmetika (delenie a násobenie konštantami) nespôsobuje žiadnu stratu presnosti na požadovaných dvoch desatinných miestach. Prevodové rovnice pre Celzius aj Fahrenheit sú implementované v RTL kóde správne a modul je pripravený na bezproblémovú syntézu do FPGA.

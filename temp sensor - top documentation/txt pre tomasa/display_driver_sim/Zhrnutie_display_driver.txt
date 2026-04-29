@@ -1,0 +1,37 @@
+Zhrnutie verifikácie modulu seg7 (Budič multiplexovaného displeja)
+Účel testu:
+Behaviorálna simulácia overila správnosť fungovania sekvenčného modulu "seg7", ktorý slúži ako radič osemmiestneho sedemsegmentového displeja. Tento modul je zodpovedný za prijatie 16-bitovej celočíselnej hodnoty (reprezentujúcej teplotu vynásobenú 100), jej dekódovanie na jednotlivé desatinné rády a následné riadenie časového multiplexu anód a katód displeja pri pracovnej frekvencii 100 MHz.  
+
+Priebeh simulácie a metodika:
+Na rozdiel od predchádzajúceho kombinačného modulu, simulácia modulu "seg7" vyžadovala beh hodinového signálu (100 MHz) a bola testovaná v rádoch milisekúnd. Interný časovač modulu je navrhnutý tak, aby prepínal aktívnu cifru každú 1 milisekundu (100 000 taktov), čím sa celá obrazovka obnoví každých 8 ms (125 Hz).  
+
+Rozbor výstupov zo simulátora (Waveform analýza):
+
+Testovací vektor 1 (Čas 0 ms – 10 ms): 25,00 °C
+
+Vstupy: data_x100_sig = 2500, is_fahr_sig = 0 (Celzius).
+
+Signál anód (an_sig): Je jasne viditeľné krokovanie nuly (aktívna v nule) zľava doprava každú 1 milisekundu (11111110, 11111101, 11111011 atď.), čo potvrdzuje bezchybný chod multiplexora.  
+
+Signál segmentov (seg_sig): V synchronizácii s anódami sa na zbernici segmentov striedajú predpokladané binárne vzory (aktívne v nule):
+
+Pozícia 0: Vykreslenie znaku 'C' (0110001).
+
+Pozícia 1: Vykreslenie znaku stupňa '°' (0011100).
+
+Pozície 2 a 3: Vykreslenie núl pre stotiny a desatiny (0000001).
+
+Pozícia 4 a 5: Vykreslenie číslic '5' (0100100) a '2' (0010010).
+
+Pozície 6 a 7: Modul správne aplikoval funkciu "blanking" (zhasnutie nepotrebných núl v stovkách a tisíckach), čím na zbernicu poslal hodnotu 1111111 (všetko vypnuté).  
+
+Desatinná čiarka (dp_sig): Signál klesol do logickej nuly presne v 5. milisekunde (pri cifre jednotiek), čím vizuálne oddelil celé stupne od desatinných.
+
+Testovací vektor 2 (Čas 10 ms a viac): 77,00 °F
+
+Vstupy: data_x100_sig = 7700, is_fahr_sig = 1 (Fahrenheit).
+
+Reakcia: Modul korektne zareagoval na zmenu prepínača jednotiek. Na nultej pozícii anódy sa začal namiesto znaku 'C' generovať znak 'F' (0111000) a segmenty začali dynamicky zobrazovať hodnotu 77.00.  
+
+Záver pre dokumentáciu:
+Modul "seg7" je plne funkčný a pripravený na nasadenie. Hardvérové delenie a modulo aritmetika extrahuje rády z binárneho vstupu bezchybne. Multiplexor presne dodržiava požadované 1 ms časovacie okná, čím garantuje stabilný obraz bez blikania (flicker-free). Dynamické zhasínanie úvodných núl (blanking) a podpora pre prepínanie jednotiek C/F boli v simulácii úspešne validované.
