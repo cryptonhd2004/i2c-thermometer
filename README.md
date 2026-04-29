@@ -89,7 +89,7 @@ Příklad:
 
 ### Schéma  
 
-<img width="1314" height="553" alt="thermometer_top (4)" src="temp sensor - top documentation/thermometer_top.jpg" />
+<img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/thermometer_top.jpg" />
 
 
 ### Zdroje
