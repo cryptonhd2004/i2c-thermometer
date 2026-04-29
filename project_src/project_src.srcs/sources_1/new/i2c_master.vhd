@@ -15,7 +15,6 @@ entity i2c_master is
 end entity i2c_master;
 
 architecture rtl of i2c_master is
-
     constant SENSOR_ADDRESS_PLUS_READ : std_logic_vector(7 downto 0) := "10010111";
 
     type state_type is (
@@ -32,17 +31,14 @@ architecture rtl of i2c_master is
     signal scl_div_cnt   : unsigned(3 downto 0)  := (others => '0');
     signal scl_reg       : std_logic := '1';
     signal count         : unsigned(11 downto 0) := (others => '0');
-
     signal tMSB          : std_logic_vector(7 downto 0) := (others => '0');
     signal tLSB          : std_logic_vector(7 downto 0) := (others => '0');
     signal temp_data_reg : std_logic_vector(15 downto 0) := (others => '0');
-
     signal o_bit         : std_logic := '1';
     signal i_bit         : std_logic;
     signal sda_dir_int   : std_logic;
 
 begin
-
     process(clk, reset)
     begin
         if reset = '1' then
@@ -75,9 +71,7 @@ begin
 
                 case state_reg is
                     when POWER_UP   => if count = 1999 then state_reg <= START; end if;
-                    when START      => 
-                        if count = 2004 then o_bit <= '0'; 
-                        elsif count = 2013 then state_reg <= SEND_ADDR6; end if;
+                    when START      => if count = 2004 then o_bit <= '0'; elsif count = 2013 then state_reg <= SEND_ADDR6; end if;
                     when SEND_ADDR6 => o_bit <= SENSOR_ADDRESS_PLUS_READ(7); if count = 2033 then state_reg <= SEND_ADDR5; end if;
                     when SEND_ADDR5 => o_bit <= SENSOR_ADDRESS_PLUS_READ(6); if count = 2053 then state_reg <= SEND_ADDR4; end if;
                     when SEND_ADDR4 => o_bit <= SENSOR_ADDRESS_PLUS_READ(5); if count = 2073 then state_reg <= SEND_ADDR3; end if;
@@ -87,7 +81,6 @@ begin
                     when SEND_ADDR0 => o_bit <= SENSOR_ADDRESS_PLUS_READ(1); if count = 2153 then state_reg <= SEND_RW;    end if;
                     when SEND_RW    => o_bit <= SENSOR_ADDRESS_PLUS_READ(0); if count = 2169 then state_reg <= REC_ACK;    end if;
                     when REC_ACK    => if count = 2189 then state_reg <= REC_MSB7; end if;
-                    
                     when REC_MSB7   => tMSB(7) <= i_bit; if count = 2209 then state_reg <= REC_MSB6; end if;
                     when REC_MSB6   => tMSB(6) <= i_bit; if count = 2229 then state_reg <= REC_MSB5; end if;
                     when REC_MSB5   => tMSB(5) <= i_bit; if count = 2249 then state_reg <= REC_MSB4; end if;
@@ -97,7 +90,6 @@ begin
                     when REC_MSB1   => tMSB(1) <= i_bit; if count = 2329 then state_reg <= REC_MSB0; end if;
                     when REC_MSB0   => o_bit <= '0'; tMSB(0) <= i_bit; if count = 2349 then state_reg <= SEND_ACK; end if;
                     when SEND_ACK   => if count = 2369 then state_reg <= REC_LSB7; end if;
-
                     when REC_LSB7   => tLSB(7) <= i_bit; if count = 2389 then state_reg <= REC_LSB6; end if;
                     when REC_LSB6   => tLSB(6) <= i_bit; if count = 2409 then state_reg <= REC_LSB5; end if;
                     when REC_LSB5   => tLSB(5) <= i_bit; if count = 2429 then state_reg <= REC_LSB4; end if;
@@ -106,7 +98,6 @@ begin
                     when REC_LSB2   => tLSB(2) <= i_bit; if count = 2489 then state_reg <= REC_LSB1; end if;
                     when REC_LSB1   => tLSB(1) <= i_bit; if count = 2509 then state_reg <= REC_LSB0; end if;
                     when REC_LSB0   => o_bit <= '1'; tLSB(0) <= i_bit; if count = 2529 then state_reg <= NACK;     end if;
-                    
                     when NACK       => if count = 2559 then count <= (others => '0'); state_reg <= POWER_UP; end if;
                 end case;
             end if;
@@ -135,5 +126,4 @@ begin
     SDA     <= o_bit when sda_dir_int = '1' else 'Z';
     i_bit   <= to_X01(SDA);
     temp_data <= temp_data_reg;
-
 end architecture rtl;

@@ -8,6 +8,8 @@ entity top is
         SW        : in    std_logic;
         TMP_SDA   : inout std_logic;
         TMP_SCL   : out   std_logic;
+        JA_SCL    : out   std_logic;
+        JA_SDA    : out   std_logic;
         SEG       : out   std_logic_vector(6 downto 0);
         DP        : out   std_logic;                         
         AN        : out   std_logic_vector(7 downto 0);      
@@ -18,11 +20,11 @@ end entity top;
 architecture rtl of top is
     signal sda_dir       : std_logic;
     signal w_ce_200kHz   : std_logic;
-    
     signal w_data_raw    : std_logic_vector(15 downto 0); 
     signal w_celsius     : std_logic_vector(15 downto 0); 
     signal w_fahrenheit  : std_logic_vector(15 downto 0); 
     signal w_data_disp   : std_logic_vector(15 downto 0); 
+    signal scl_internal  : std_logic; 
 begin
 
     u_clkgen : entity work.clk_en
@@ -31,7 +33,7 @@ begin
 
     u_master : entity work.i2c_master
         port map ( clk => CLK100MHZ, ce => w_ce_200kHz, reset => reset,
-                   SDA => TMP_SDA, temp_data => w_data_raw, SDA_dir => sda_dir, SCL => TMP_SCL );
+                   SDA => TMP_SDA, temp_data => w_data_raw, SDA_dir => sda_dir, SCL => scl_internal );
 
     u_temp_conv : entity work.temp_conv
         port map ( temp_raw => w_data_raw, celsius_x100 => w_celsius, fahrenheit_x100 => w_fahrenheit );
@@ -44,4 +46,8 @@ begin
 
     LED <= w_data_raw(14 downto 7);
     
+    TMP_SCL <= scl_internal;
+    JA_SCL  <= scl_internal; 
+    JA_SDA  <= to_X01(TMP_SDA); 
+
 end architecture rtl;

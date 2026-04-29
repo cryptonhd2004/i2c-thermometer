@@ -14,7 +14,6 @@ entity seg7 is
 end entity seg7;
 
 architecture rtl of seg7 is
-
     signal hundreds   : integer range 0 to 9;
     signal tens       : integer range 0 to 9;
     signal ones       : integer range 0 to 9;
@@ -42,7 +41,6 @@ architecture rtl of seg7 is
     signal an_reg  : std_logic_vector(7 downto 0) := (others => '1');
 
 begin
-
     process(data_x100)
         variable val : integer;
     begin
@@ -105,5 +103,4 @@ begin
 
     SEG <= seg_reg;
     AN  <= an_reg;
-
 end architecture rtl;
