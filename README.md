@@ -121,7 +121,11 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 ## [Plakát](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/POSTER.png)
 
-<video src="temp sensor - top documentation/demo_w_sk_subs.mp4" width="320" height="240" controls></video>
+
+
+https://github.com/user-attachments/assets/2cee3b63-dd16-42bd-8ec1-0b27398b0865
+
+
 ---
 
 ## Zdroje
