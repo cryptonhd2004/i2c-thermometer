@@ -18,13 +18,22 @@ entity top is
 end entity top;
 
 architecture rtl of top is
+    
+    -- =========================================================================
+    -- NASTAVENIE RÝCHLOSTI DOPYTOVANIA
+    -- =========================================================================
+    -- Definuje počet cyklov `ce` (200 kHz), počas ktorých zbernica oddychuje.
+    -- 200_000 = oneskorenie presne 1 sekunda.
+    constant C_POLLING_DELAY_CYCLES : positive := 200_000;
+
     signal sda_dir       : std_logic;
     signal w_ce_200kHz   : std_logic;
-    signal w_data_raw    : std_logic_vector(15 downto 0); 
+    signal w_data_raw    : std_logic_vector(15 downto 0);
     signal w_celsius     : std_logic_vector(15 downto 0); 
-    signal w_fahrenheit  : std_logic_vector(15 downto 0); 
+    signal w_fahrenheit  : std_logic_vector(15 downto 0);
     signal w_data_disp   : std_logic_vector(15 downto 0); 
-    signal scl_internal  : std_logic; 
+    signal scl_internal  : std_logic;
+    
 begin
 
     u_clkgen : entity work.clk_en
@@ -32,18 +41,38 @@ begin
         port map ( clk => CLK100MHZ, rst => reset, ce => w_ce_200kHz );
 
     u_master : entity work.i2c_master
-        port map ( clk => CLK100MHZ, ce => w_ce_200kHz, reset => reset,
-                   SDA => TMP_SDA, temp_data => w_data_raw, SDA_dir => sda_dir, SCL => scl_internal );
+        generic map (
+            G_POLL_RATE_CYCLES => C_POLLING_DELAY_CYCLES
+        )
+        port map ( 
+            clk       => CLK100MHZ, 
+            ce        => w_ce_200kHz, 
+            reset     => reset,
+            SDA       => TMP_SDA, 
+            temp_data => w_data_raw, 
+            SDA_dir   => sda_dir, 
+            SCL       => scl_internal 
+        );
 
     u_temp_conv : entity work.temp_conv
-        port map ( temp_raw => w_data_raw, celsius_x100 => w_celsius, fahrenheit_x100 => w_fahrenheit );
-
+        port map ( 
+            temp_raw        => w_data_raw, 
+            celsius_x100    => w_celsius, 
+            fahrenheit_x100 => w_fahrenheit 
+        );
+        
     w_data_disp <= w_celsius when SW = '0' else w_fahrenheit;
 
     u_seg7 : entity work.seg7
-        port map ( clk_100MHz => CLK100MHZ, data_x100 => w_data_disp, is_fahr => SW,
-                   SEG => SEG, DP => DP, AN => AN );
-
+        port map ( 
+            clk_100MHz => CLK100MHZ, 
+            data_x100  => w_data_disp, 
+            is_fahr    => SW,
+            SEG        => SEG, 
+            DP         => DP, 
+            AN         => AN 
+        );
+        
     LED <= w_data_raw(14 downto 7);
     
     TMP_SCL <= scl_internal;
