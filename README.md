@@ -1,8 +1,6 @@
 # I2C Thermometer implementation
 ## Plakát
 
-[Plakát](temp sensor - top documentation/POSTER.png)
-https://github.com/cryptonhd2004/i2c-thermometer/blob/697cef1a8661db91c687b03d31bc93de2b2695a3/temp%20sensor%20-%20top%20documentation/POSTER.png
 
 ### Členové Týmu
 
@@ -91,7 +89,7 @@ Příklad:
 25°C je naše výsledná teplota. 
 
 ### Popis jednotlivých bloků
-#### clk_enable_gen
+#### clk_enable_gen [`clk_enable_gen`](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/txt%20pre%20tomasa/codes/clk_gen_200khz.txt)
 Blok, který generuje hodinový signál s frekvencí 200 kHz na výstupu ce_200kHz. Vzali jsme hodinový signál z naší FPGA desky o hodnotě 100 kHz a předělali ho na potřebných 200 kHz. 
 Každých 500 náběžných hran z vstupu `clk` se vytvoří jeden puls na výstupu `ce`. 
 
