@@ -114,11 +114,16 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 ## Schéma  
 
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/thermometer_top.jpg" />
+
 ---
-## Přidané soubory
+## Plakát a využití zdrojů
+
 
 [Plakát](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/POSTER.png)
+<img width="553" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/resource_report.png" />
+
 ---
+
 ## Zdroje
 
 * Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
