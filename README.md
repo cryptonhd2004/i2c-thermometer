@@ -1,7 +1,7 @@
 # I2C Thermometer implementation
 ## Plakát
 
-<img width="553" height="800" alt="ADT7420-piny(4)" src="temp sensor - top documentation/POSTER.png" />
+
 https://github.com/cryptonhd2004/i2c-thermometer/blob/697cef1a8661db91c687b03d31bc93de2b2695a3/temp%20sensor%20-%20top%20documentation/POSTER.png
 
 ### Členové Týmu
