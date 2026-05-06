@@ -36,6 +36,7 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 -- 10 pracovních registrů
 
 -- Komunikace se senzorem probíhá přes I2C sběrnici
+
 ---
 ## Popis pinů
 
@@ -84,6 +85,7 @@ Příklad:
 400 * 0.0625 --- zde vynásobíme 
 
 25°C je naše výsledná teplota. 
+
 ---
 ## Popis jednotlivých bloků 
 
