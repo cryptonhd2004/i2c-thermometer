@@ -1,7 +1,7 @@
 # I2C Thermometer implementation
 ## Plakát
 
-
+[Plakát](temp sensor - top documentation/POSTER.png)
 https://github.com/cryptonhd2004/i2c-thermometer/blob/697cef1a8661db91c687b03d31bc93de2b2695a3/temp%20sensor%20-%20top%20documentation/POSTER.png
 
 ### Členové Týmu
@@ -114,6 +114,8 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/thermometer_top.jpg" />
 
+### Přidané soubory
+[Plakát](temp sensor - top documentation/POSTER.png)
 
 ### Zdroje
 * Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
