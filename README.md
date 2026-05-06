@@ -123,7 +123,7 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 
 https://raw.githubusercontent.com/cryptonhd2004/i2c-thermometer/main/demo_w_sk_subs(3).mp4
-
+[![Demo](ADT7420-piny.png)](https://raw.githubusercontent.com/cryptonhd2004/i2c-thermometer/main/demo_w_sk_subs(3).mp4)
 ---
 
 ## Zdroje
