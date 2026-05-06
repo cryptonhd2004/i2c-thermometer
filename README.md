@@ -105,7 +105,7 @@ Tento blok nám slouží jako převod hodnoty z I2C do pro nás čitelné podoby
 Číslo které dostaneme v binárním tvaru převádíme do klasického integer čísla, to potom vydělením 8 zmenšíme ze 16 bitů na 13 bitů, protože ty tři bity jsou nepotřebné a neobsahují hodnotu teploty. Poté se číslo vynásobí 625 a vydělí 100 a převede zpět na 16 bitové číslo a teplotu ve Fahrenheit. 
 
 ---
-### segcontrol ([`temp_conv`](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/project_src/project_src.srcs/sources_1/imports/new/display_driver.vhd))
+### segcontrol ([`display_driver`](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/project_src/project_src.srcs/sources_1/imports/new/display_driver.vhd))
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/txt pre tomasa/display_driver_sim/display_driver.png" />
 Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displejích. Nejdříve naši hodnotu převedeme na číslo, to potom dělením rozdělíme na stovky, desítky, jednotky, desetiny a setiny. Porty `seg` a `an` poté podle toho vyberou správný přirazený segment a ten potom rozsvití. Rozsvícení jednotlívých segmentu probíha tak, že vždy se rozsvítí jen jeden segment a tak se vystřídájí všechny segmenty tak rychle, že to lidské oko nepozná. 
 
