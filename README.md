@@ -15,6 +15,8 @@
 - [Ukázka z logického analyzéru](#ukázka-z-logického-analyzéru)
 - [Schéma](#schéma)
 - [Využití zdrojů](#využití-zdrojů)
+- [DEMO video](#demo-video)
+- [Plakát](#Plakát)
 - [Zdroje](#zdroje)
 
 ---
@@ -157,9 +159,9 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 ---
 
-### [Plakát](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/POSTER.png)
+## [Plakát](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/POSTER.png)
 
-### [DEMO video](https://youtu.be/gOd2fdb2OMk)
+## [DEMO video](https://youtu.be/gOd2fdb2OMk)
 
 ---
 
