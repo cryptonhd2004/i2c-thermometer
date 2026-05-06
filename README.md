@@ -1,6 +1,7 @@
 # I2C Thermometer implementation
 ## Plakát
 
+<img width="553" height="553" alt="ADT7420-piny(4)" src="temp sensor - top documentation/POSTER.png" />
 ### Členové Týmu
 
 * Adam Solovic
