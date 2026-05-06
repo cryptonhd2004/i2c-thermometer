@@ -2,7 +2,7 @@
 ## Plakát
 
 <img width="553" height="800" alt="ADT7420-piny(4)" src="temp sensor - top documentation/POSTER.png" />
-
+https://github.com/cryptonhd2004/i2c-thermometer/blob/697cef1a8661db91c687b03d31bc93de2b2695a3/temp%20sensor%20-%20top%20documentation/POSTER.png
 
 ### Členové Týmu
 
@@ -64,7 +64,7 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 ### I2C komunikace
 Na naší vývojové desce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, funguje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. 
 Když bychom chtěli něco zapsat do zařízení, musíme poslat adresu daného registru a poté data které chceme zapsat do daného registru. Při čtení je to ale jiné. Nejdříve pošleme adresu registru ze kterého chceme číst, poté pošleme I2C žádost o restart a znovu odešleme novou žádost o čtení. Pokud vynecháme I2C žádost o restart, hodnota v adresovaném registru bude 0x00. Některé registry ukládají 16bitové hodnoty jako jeden pár 8bitových hodnot a proto ADT7420 automaticky přidá jeden bit do adresy registru při přečtení z prvního registru. 
-Toho budeme využívat my, jelikož čteme z registrů Temperature value a ty jsou dva: Temperature value most significant byte a Temperature value least significant byte. Díky tomuto automatickému přičítaní můžeme číst z obou registrů zároveň.
+Toho budeme využívat my, jelikož čteme z registrů Temperature value a ty jsou dva: **Temperature value most significant byte** a **Temperature value least significant byte**. Díky tomuto automatickému přičítaní můžeme číst z obou registrů zároveň.
 
 
 
