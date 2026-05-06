@@ -2,6 +2,8 @@
 ## Plakát
 
 <img width="553" height="800" alt="ADT7420-piny(4)" src="temp sensor - top documentation/POSTER.png" />
+
+
 ### Členové Týmu
 
 * Adam Solovic
