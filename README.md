@@ -16,7 +16,7 @@
 V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvolili jsme ho z důvodu minulé zkušenosti jednoho našeho člena s teplotními senzory. 
 
 ### Základní informace o senzoru
-
+---
 -- Velikost senzoru: 4 mm x 4 mm
 
 -- Součásti senzoru: Vnitřní zdroj stabilního napětí, teplotní senzor a 16 bitový ADC převodník
@@ -42,7 +42,7 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 -- Komunikace se senzorem probíhá přes I2C sběrnici
 
 ### Popis pinů
-
+---
 <img width="553" height="553" alt="ADT7420-piny(4)" src="temp sensor - top documentation/ADT7420-piny.png" />
 
 | Číslo pinu | Označení | Popis |
@@ -60,6 +60,7 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 |`17`|EP|Odhalený pin - je nutné aby tento pin byl připojen na ground nebo ponechaný sám o sobě|
 
 ### I2C komunikace
+---
 Na naší vývojové desce Nexys-A7-50T funguje komunikace s naším teplotním senzorem ADT7420 pomocí I2C sběrnice. Tato sběrnice, vyvinutá holandskou firmou Philips, funguje na bázi master-slave, kdy zařízení kterým chceme ovladát uvedeme do role master a ovládané zařízení bude slave. Při I2C komunikaci se každý rámec odeslaný masterem posílá na všechny zařízení v rámci dané I2C sběrnice, proto vždy musíme specifikovat danou hexadecimální adresu tohoto zařízení a taky flag, který bude 1 když budeme číst ze zařízení nebo 0 když budeme zapisovat do zařízení. Poté až může začít datový přenos. 
 Když bychom chtěli něco zapsat do zařízení, musíme poslat adresu daného registru a poté data které chceme zapsat do daného registru. Při čtení je to ale jiné. Nejdříve pošleme adresu registru ze kterého chceme číst, poté pošleme I2C žádost o restart a znovu odešleme novou žádost o čtení. Pokud vynecháme I2C žádost o restart, hodnota v adresovaném registru bude 0x00. Některé registry ukládají 16bitové hodnoty jako jeden pár 8bitových hodnot a proto ADT7420 automaticky přidá jeden bit do adresy registru při přečtení z prvního registru. 
 Toho budeme využívat my, jelikož čteme z registrů Temperature value a ty jsou dva: **Temperature value most significant byte** a **Temperature value least significant byte**. Díky tomuto automatickému přičítaní můžeme číst z obou registrů zároveň.
@@ -67,7 +68,7 @@ Toho budeme využívat my, jelikož čteme z registrů Temperature value a ty js
 
 
 ### FORMÁT PŘIJÍMANÝCH DAT
-
+---
 Tyto hodnoty bereme z registrů s názvem Temperature value least significant byte a Temperature value most significant byte s adresami 0x00 a 0x01. Začneme s tím, že z registrů budeme chtít číst 13-bitové hodnoty teploty. Oba registry dohromady mají velikost 16 bit, ale my budeme pracovat jen v 13-bitovém režimu, jelikož po sensoru nevyžadujeme takovou přesnost. Kdybychom chtěli, tak bychom mohli pracovat i v 16-bitovém režimu, který byl přesnější, ale jak už bylo zmíněno, na naše poměry stačí jen 13-bitový. Když tedy budeme pracovat s 13-bitovým výsledkem tak formát přijímaných dat bude vypadat následovně:
 
 3-14 bit --- už převedená hodnota naměřené teploty
@@ -89,6 +90,7 @@ Příklad:
 25°C je naše výsledná teplota. 
 
 ### Popis jednotlivých bloků 
+---
 #### clk_enable_gen [`clk_enable_gen`](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/txt%20pre%20tomasa/codes/clk_gen_200khz.txt)
 Blok, který generuje hodinový signál s frekvencí 200 kHz na výstupu ce_200kHz. Vzali jsme hodinový signál z naší FPGA desky o hodnotě 100 kHz a předělali ho na potřebných 200 kHz. 
 Každých 500 náběžných hran z vstupu `clk` se vytvoří jeden puls na výstupu `ce`. 
@@ -109,14 +111,15 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 
 ### Schéma  
-
+---
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/thermometer_top.jpg" />
 
 ### Přidané soubory
-
+---
 [Plakát](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/POSTER.png)
 
 ### Zdroje
+---
 * Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
 * Verilog inspirace: https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C
 * Datasheet pro naši desku Nexys A7 50T: https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf
