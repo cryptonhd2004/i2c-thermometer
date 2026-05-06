@@ -15,8 +15,8 @@
 - [Ukázka z logického analyzéru](#ukázka-z-logického-analyzéru)
 - [Schéma](#schéma)
 - [Využití zdrojů](#využití-zdrojů)
-- [DEMO video](#demo-video)
 - [Plakát](#Plakát)
+- [DEMO video](#demo-video)
 - [Zdroje](#zdroje)
 
 ---
