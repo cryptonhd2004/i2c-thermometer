@@ -111,6 +111,24 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 ---
 
+## Ukázka z logického analyzéru 
+<img width="1000" height="600" alt="logicky analyzer" src="temp sensor - top documentation/logic_analyzer2.png" />
+
+## I2C komunikace – Channel 0 a Channel 1
+
+**Channel 0 (D0)** zobrazuje surový průběh SDA linky – typický I2C signál synchronizovaný s hodinami SCL.
+
+**Channel 1 (D1)** zobrazuje dekódované I2C zprávy v této sekvenci:
+
+- **0xFF + NAK** – master se opakovaně pokouší komunikovat, ale žádné zařízení neodpovídá
+- **Read [0x4B] + ACK** – master osloví zařízení na adrese `0x4B`, které tentokrát odpoví
+- **0x10 + ACK** – zařízení pošle první byte dat (`0x10`), vše OK
+- **0xD8 + NAK** – zařízení pošle druhý byte (`0xD8`), master záměrně odpoví NAK = konec čtení
+- **0xFF + NAK** – cyklus se opakuje od začátku
+
+
+---
+
 ## Schéma  
 
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/thermometer_top.jpg" />
@@ -123,9 +141,9 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 ### [Plakát](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/temp%20sensor%20-%20top%20documentation/POSTER.png)
 
-### [DEMO](https://youtu.be/gOd2fdb2OMk)
+### [DEMO video](https://youtu.be/gOd2fdb2OMk)
 
-
+---
 
 ## Zdroje
 
