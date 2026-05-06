@@ -89,7 +89,7 @@ Příklad:
 ### Popis jednotlivých bloků
 #### clk_enable_gen
 Blok, který generuje hodinový signál s frekvencí 200 kHz na výstupu ce_200kHz. Vzali jsme hodinový signál z naší FPGA desky o hodnotě 100 kHz a předělali ho na potřebných 200 kHz. 
-Každých 500 náběžných hran z vstupu **clk** se vytvoří jeden puls na výstupu **ce**. 
+Každých 500 náběžných hran z vstupu `clk` se vytvoří jeden puls na výstupu `ce`. 
 
 #### i2c_master_cont
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/txt pre tomasa/i2c_master_sim/i2c_sim.png" />
@@ -97,10 +97,12 @@ V tomto bloku probíhá hlavní I2C komunikace s teplotním senzorem. Někoho by
 
 #### temp_conv
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/txt pre tomasa/temp_conv_sim/temp_conv_sim.png" />
-Tento blok nám slouží jako převod hodnoty z I2C do pro nás čitelné podoby, kterou pak následně pošle do bloku segcontrol. V tomto bloku nevyužíváme žádný clock, vše co přijde na vstup **temp_data** rovno překládáme.
+Tento blok nám slouží jako převod hodnoty z I2C do pro nás čitelné podoby, kterou pak následně pošle do bloku segcontrol. V tomto bloku nevyužíváme žádný clock, vše co přijde na vstup `temp_data` rovnou překládáme.
+Číslo které dostaneme v binárním tvaru převádíme do klasického integer čísla, to potom vydělením 8 zmenšíme ze 16 bitů na 13 bitů, protože ty tři bity jsou nepotřebné a neobsahují hodnotu teploty. Poté se číslo vynásobí 625 a vydělí 100 a převede zpět na 16 bitové číslo a teplotu ve Fahrenheit. 
 
 
 
+#### 
 
 
 ### Schéma  
