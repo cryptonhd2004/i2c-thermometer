@@ -1,11 +1,29 @@
-# **I2C Thermometer implementation**
+# I2C Thermometer implementation
+
+## Obsah
+- [Členové týmu](#členové-týmu)
+- [Úvod](#úvod)
+- [Základní informace o senzoru](#základní-informace-o-senzoru)
+- [Popis pinů](#popis-pinů)
+- [I2C komunikace](#i2c-komunikace)
+- [Formát přijímaných dat](#formát-přijímaných-dat)
+- [Popis jednotlivých bloků](#popis-jednotlivých-bloků)
+  - [clk_enable_gen](#clk_enable_gen)
+  - [i2c_master_cont](#i2c_master_cont)
+  - [temp_conv](#temp_conv)
+  - [segcontrol](#segcontrol)
+- [Ukázka z logického analyzéru](#ukázka-z-logického-analyzéru)
+- [Schéma](#schéma)
+- [Využití zdrojů](#využití-zdrojů)
+- [Zdroje](#zdroje)
+
+---
 
 ### Členové Týmu
 
 * Adam Solovic
 * Tomáš Střelec
 * David Šindelář
-
 
 ## Úvod
 
@@ -55,6 +73,7 @@ V našem projektu jsme si vybrali vlastní téma, teplotní senzor ADT7420. Zvol
 |`12`|Vdd|Přivod napětí 2.7 V až 5V |
 |`13-16`|NC|NEPŘIPOJEN|
 |`17`|EP|Odhalený pin - je nutné aby tento pin byl připojen na ground nebo ponechaný sám o sobě|
+
 ---
 ## I2C komunikace
 
@@ -68,13 +87,13 @@ Toho budeme využívat my, jelikož čteme z registrů Temperature value a ty js
 
 Tyto hodnoty bereme z registrů s názvem **Temperature value least significant byte** a **Temperature value most significant byte** s adresami **0x00** a **0x01**. Začneme s tím, že z registrů budeme chtít číst **13-bitové** hodnoty teploty. Oba registry dohromady mají velikost 16 bit, ale my budeme pracovat jen v 13-bitovém režimu, jelikož po senzoru nevyžadujeme takovou přesnost. Kdybychom chtěli, tak bychom mohli pracovat i v 16-bitovém režimu, který byl přesnější, ale jak už bylo zmíněno, na naše poměry stačí jen 13-bitový. Když tedy budeme pracovat s 13-bitovým výsledkem tak formát přijímaných dat bude vypadat následovně:
 
-**3-14 bit** --- už převedená hodnota naměřené teploty
-**15 bit**	 --- znaménko převedené hodnoty(jestli teplota je pod nulou či nad nulou)
+**3-14 bit** --- už převedená hodnota naměřené teploty  
+**15 bit**   --- znaménko převedené hodnoty(jestli teplota je pod nulou či nad nulou)
 
 Tímto formátem budeme číst a převádět hodnoty naměřených teplot. Jeden **LSB** má ve 13-bitovém čtení hodnotu **0.0625°C**. 
 Přečtenou hodnotu z registru musíme poté převést z binárního čísla na hexadecimální a to poté převést na decimální a to poté jen v kódě vynásobíme 0.0625. Tím získáme změřenou teplotu ve stupních celsium.
 
-** Příklad: **
+**Příklad:**
 
 (0 0001 1001 0000) --- tuto hodnotu přijmeme z registru
 
@@ -96,7 +115,7 @@ Každých 500 náběžných hran z vstupu `clk` se vytvoří jeden puls na výst
 ---
 ### i2c_master_cont ([`i2c_master_cont`](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/project_src/project_src.srcs/sources_1/new/i2c_master.vhd))
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/txt pre tomasa/i2c_master_sim/i2c_sim.png" />
-V tomto bloku probíhá hlavní I2C komunikace s teplotním senzorem. Někoho by mohlo zmást, proč přívádíme 100 MHz a 200kHz zároveň, když jsme si za účelem vytvoření našeho `ce` (clock enable) signálu vytvářeli celý blok. Signál ye vstupu `clk` o hodnotě 100 MHz slouží k vnitřní synchronizaci bloků **i2_master_cont** a **segcontrol**, aby vše probíhalo tak jak má. Zde ho zároveň i dělíme, stejně jako v bloku **clk_enable_gen** naším signálem z vstupního portu `ce`. Tento signál potom přetvoříme na `SCL`, který bude mít frekvenci 10 kHz. Signál SCL nám říká kdy čteme data z našeho senzoru. Nejdříve zahájíme komunikaci posláním start podmínky. `SDA` je permanentně připojené na pull-up rezistor, takže je vždy v 1 a naši komunikaci zahájíme posláním 0. Poté pošleme 7 bitovou adresu našeho slave(senzoru) a jestli z něj čteme(hodnota 1) nebo do něj zapisujeme (hodnota 0). Poté čekáme na ACK od senzoru a po ACK čteme už jednotlivé hodnoty hodnoty z registrů ve formátu, viz. odrážka Formát přijímaných dat. Komunikace končí NACK z naší strany. 
+V tomto bloku probíhá hlavní I2C komunikace s teplotním senzorem. Někoho by mohlo zmást, proč přívádíme 100 MHz a 200kHz zároveň, když jsme si za účelem vytvoření našeho `ce` (clock enable) signálu vytvářeli celý blok. Signál ze vstupu `clk` o hodnotě 100 MHz slouží k vnitřní synchronizaci bloků **i2_master_cont** a **segcontrol**, aby vše probíhalo tak jak má. Zde ho zároveň i dělíme, stejně jako v bloku **clk_enable_gen** naším signálem z vstupního portu `ce`. Tento signál potom přetvoříme na `SCL`, který bude mít frekvenci 10 kHz. Signál SCL nám říká kdy čteme data z našeho senzoru. Nejdříve zahájíme komunikaci posláním start podmínky. `SDA` je permanentně připojené na pull-up rezistor, takže je vždy v 1 a naši komunikaci zahájíme posláním 0. Poté pošleme 7 bitovou adresu našeho slave(senzoru) a jestli z něj čteme(hodnota 1) nebo do něj zapisujeme (hodnota 0). Poté čekáme na ACK od senzoru a po ACK čteme už jednotlivé hodnoty hodnoty z registrů ve formátu, viz. odrážka Formát přijímaných dat. Komunikace končí NACK z naší strany. 
 
 ---
 ### temp_conv ([`temp_conv`](https://github.com/cryptonhd2004/i2c-thermometer/blob/main/project_src/project_src.srcs/sources_1/new/temp_conv.vhd))
@@ -114,7 +133,7 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 ## Ukázka z logického analyzéru 
 <img width="1000" height="600" alt="logicky analyzer" src="temp sensor - top documentation/logic_analyzer2.png" />
 
-## I2C komunikace – Channel 0 a Channel 1
+### I2C komunikace – Channel 0 a Channel 1
 
 **Channel 0 (D0)** zobrazuje surový průběh SDA linky – typický I2C signál synchronizovaný s hodinami SCL.
 
@@ -125,7 +144,6 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 - **0x10 + ACK** – zařízení pošle první byte dat (`0x10`), vše OK
 - **0xD8 + NAK** – zařízení pošle druhý byte (`0xD8`), master záměrně odpoví NAK = konec čtení
 - **0xFF + NAK** – cyklus se opakuje od začátku
-
 
 ---
 
@@ -147,8 +165,7 @@ Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displej
 
 ## Zdroje
 
-* Constrain soubor pro Nexys A7 50T https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc
-* Verilog inspirace: https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C
-* Datasheet pro naši desku Nexys A7 50T: https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf
-* Datasheet pro ADT7420: https://www.analog.com/media/en/technical-documentation/data-sheets/ADT7420.pdf
----
+* Constrain soubor pro Nexys A7 50T [https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Nexys-A7-50T-Master.xdc)
+* Verilog inspirace: [https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C](https://github.com/FPGADude/Digital-Design/tree/main/FPGA%20Projects/NexysA7_Temp_Sensor_I2C)
+* Datasheet pro naši desku Nexys A7 50T: [https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf](https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf)
+* Datasheet pro ADT7420: [https://www.analog.com/media/en/technical-documentation/data-sheets/ADT7420.pdf](https://www.analog.com/media/en/technical-documentation/data-sheets/ADT7420.pdf)
