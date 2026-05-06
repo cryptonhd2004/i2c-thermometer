@@ -1,4 +1,5 @@
 # I2C Thermometer implementation
+## Plakát
 
 ### Členové Týmu
 
@@ -93,16 +94,17 @@ Každých 500 náběžných hran z vstupu `clk` se vytvoří jeden puls na výst
 
 #### i2c_master_cont
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/txt pre tomasa/i2c_master_sim/i2c_sim.png" />
-V tomto bloku probíhá hlavní I2C komunikace s teplotním senzorem. Někoho by mohlo zmást, proč přívádíme 100 MHz a 200kHz zároveň, když jsme si za účelem vytvoření našeho ce(clock enable) signálu vytvářeli celý blok. Signál clk o hodnotě 100 MHz slouží k vnitřní synchronizaci bloků i2_master_cont a segcontrol, aby vše probíhalo tak jak má. Zde ho zároveň i dělíme, stejně jako v bloku clk_enable_gen naším signálem z vstupního portu **ce**. Tento signál potom přetvoříme na SCL, který bude mít frekvenci 10 kHz. Signál SCL nám říká kdy čteme data z našeho senzoru. Nejdříve zahájíme komunikaci posláním start podmínky. SDA je permanentně připojené na pull-up rezistor, takže je vždy v 1 a naši komunikaci zahájíme posláním 0. Poté pošleme 7 bitovou adresu našeho slave(senzoru) a jestli z něj čteme(hodnota 1) nebo do něj zapisujeme (hodnota 0). Poté čekáme na ack od senzoru a po ACK čteme už jednotlivé hodnoty hodnoty z registrů ve formátu, viz. odrážka Formát přijímaných dat. Komunikace končí NACK z naší strany. 
+V tomto bloku probíhá hlavní I2C komunikace s teplotním senzorem. Někoho by mohlo zmást, proč přívádíme 100 MHz a 200kHz zároveň, když jsme si za účelem vytvoření našeho `ce` (clock enable) signálu vytvářeli celý blok. Signál ye vstupu `clk` o hodnotě 100 MHz slouží k vnitřní synchronizaci bloků **i2_master_cont** a **segcontrol**, aby vše probíhalo tak jak má. Zde ho zároveň i dělíme, stejně jako v bloku **clk_enable_gen** naším signálem z vstupního portu `ce`. Tento signál potom přetvoříme na `SCL`, který bude mít frekvenci 10 kHz. Signál SCL nám říká kdy čteme data z našeho senzoru. Nejdříve zahájíme komunikaci posláním start podmínky. `SDA` je permanentně připojené na pull-up rezistor, takže je vždy v 1 a naši komunikaci zahájíme posláním 0. Poté pošleme 7 bitovou adresu našeho slave(senzoru) a jestli z něj čteme(hodnota 1) nebo do něj zapisujeme (hodnota 0). Poté čekáme na ACK od senzoru a po ACK čteme už jednotlivé hodnoty hodnoty z registrů ve formátu, viz. odrážka Formát přijímaných dat. Komunikace končí NACK z naší strany. 
 
 #### temp_conv
 <img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/txt pre tomasa/temp_conv_sim/temp_conv_sim.png" />
 Tento blok nám slouží jako převod hodnoty z I2C do pro nás čitelné podoby, kterou pak následně pošle do bloku segcontrol. V tomto bloku nevyužíváme žádný clock, vše co přijde na vstup `temp_data` rovnou překládáme.
 Číslo které dostaneme v binárním tvaru převádíme do klasického integer čísla, to potom vydělením 8 zmenšíme ze 16 bitů na 13 bitů, protože ty tři bity jsou nepotřebné a neobsahují hodnotu teploty. Poté se číslo vynásobí 625 a vydělí 100 a převede zpět na 16 bitové číslo a teplotu ve Fahrenheit. 
 
+#### segcontrol
+<img width="1314" height="553" alt="thermometer_top (1)" src="temp sensor - top documentation/txt pre tomasa/display_driver_sim/display_driver.png" />
+Poslední modul zajišťuje zobrazení našich hodnot na 7 segmentových displejích. Nejdříve naši hodnotu převedeme na číslo, to potom dělením rozdělíme na stovky, desítky, jednotky, desetiny a setiny. Porty `seg` a `an` poté podle toho vyberou správný přirazený segment a ten potom rozsvití. Rozsvícení jednotlívých segmentu probíha tak, že vždy se rozsvítí jen jeden segment a tak se vystřídájí všechny segmenty tak rychle, že to lidské oko nepozná. 
 
-
-#### 
 
 
 ### Schéma  
